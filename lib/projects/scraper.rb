@@ -2,22 +2,26 @@ class Projects::Scraper
 
   def self.scrape
 
-      doc = Nokogiri::HTML(open("http://www.sci-news.com"))
+   doc = Nokogiri::HTML(open("http://www.sci-news.com"))
+   node = doc.search("#main > div > div.box > div > div.block > div > article")
+   node.each do | article |
+   name = article.search("h3 > a").text
+   description = article.search("div").text.gsub("read more...", "").strip
+   url = doc.search("article > div > div").text.strip
+    #binding.pry
 
-      name = doc.search("#main > div > div.box.block1 > div > div.block > div > article > h3 > a").text
-      description = doc.search("#main > div > div.box.block1 > div > div.block > div > article > div").text.strip
-      url = "click on link to read more "  "http://www.sci-news.com/astronomy/milky-ways-thick-disk-07881.html "
+   Projects::Science.new(name, description, url)
+  end
 
-      Projects::Science.new(name, description, url)
-  
+    def self.scrape_unknown
 
-  
-    doc = Nokogiri::HTML(open('http://www.sci-news.com/space/solar-wind-outer-heliosphere-new-horizons-07870.html'))
+     name =  " Jeshua Hicks"
+     description = " A little about me im 35yrs old, im a father of two girls, Worked on computers for a long time ever since i was a teenager,
+     worked in construction until i gt laid off due to health issues, now Learning how to be a programmer is part of a
+     field id dream of when i was a kid I enjoy computers, Rc stuff and anything else thats fun...including coding which i find to be amazing.."
+     url = ""
 
-    name =  doc.search("#content > header > h1").text
-    description = doc.search("#post-64347 > div > p:nth-child(1)").text.strip
-    url = "http://www.sci-news.com/space/solar-wind-outer-heliosphere-new-horizons-07870.html"
-
-    Projects::Science.new(name, description, url)
+     Projects::Science.new(name, description, url)
+    end
   end
 end

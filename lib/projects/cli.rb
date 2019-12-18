@@ -2,6 +2,7 @@ class Projects::CLI
 
   def call
     Projects::Scraper.scrape
+    Projects::Scraper.scrape_unknown
     welcome
     list_sci_articles
     menu

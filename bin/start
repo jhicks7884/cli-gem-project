@@ -2,5 +2,3 @@
 
 require '../lib/enviroment'
 Projects::CLI.new.call
-
-
