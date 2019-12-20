@@ -5,7 +5,8 @@ class Projects::Scraper
     node.each do |article|
      name = article.search('h3 > a').text
      description = article.search('div').text.gsub('read more...', '').strip
-     url = article.search('div.block > div > article > div > div')
+     url = article.css('a')[0]['href']
+     #binding.pry
      Projects::Science.new(name, description, url)
     end
   end
@@ -14,7 +15,7 @@ class Projects::Scraper
     description = ' A little about me im 35yrs old, im a father of two girls, Worked on computers for a long time ever since i was a teenager,
     worked in construction until i gt laid off due to health issues, now Learning how to be a programmer is part of a
     field id dream of when i was a kid I enjoy computers, Rc stuff and anything else thats fun...including coding which i find to be amazing..'
-    url = 'hello'
+    url =
     Projects::Science.new(name, description, url)
   end
 end

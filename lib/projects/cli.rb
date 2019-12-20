@@ -35,9 +35,9 @@ class Projects::CLI
      science_choice = Projects::Science.find_by_index(input.to_i - 1)
      puts ''
     if input == '1'
-      puts "#{science_choice.description}"
+      puts "#{science_choice.description}", "#{science_choice.url}"
     else input == '2'
-      puts "#{science_choice.description}"
+      puts "#{science_choice.description}", "#{science_choice.url}"
     if input == 'list'
       puts list_sci_articles
     end
