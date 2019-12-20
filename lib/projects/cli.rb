@@ -14,34 +14,27 @@ class Projects::CLI
     name = gets.chomp
     puts "Hello Welcome To the World of Science #{name}"
     puts ''
-    puts 'please type in list to continue or exit to leave'
   end
 
   def list_sci_articles
-    input = gets.chomp
-    if input == 'list'
     puts ''
     science = Projects::Science.all
     science.each.with_index(1) {|science, index| puts "#{index}. #{science.name}"}
-    list_sci_articles
-    end
   end
 
   def menu
     puts 'enter the number youd like more information on or type list for selection'
     input = gets.chomp
 
-    if input.to_i.positive?
-     science_choice = Projects::Science.find_by_index(input.to_i - 1)
-     puts ''
-    if input.to_i > 0
+    if input.to_i.positive? && input.to_i <= Projects::Science.all.count  # takes user input to integer to make sure its a positive  and checks if input is less than 12...
+      science_choice = Projects::Science.find_by_index(input.to_i - 1)
+      puts ''
       puts "#{science_choice.description}, #{science_choice.url}"
+      menu
+    elsif input == 'list'
+     list_sci_articles
 
-    if input == 'list'
-      puts list_sci_articles
-     end
-    end
-    menu
+      menu
     elsif input == 'exit'
       system 'clear' or system 'cls'
       exit
