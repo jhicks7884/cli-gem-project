@@ -5,7 +5,7 @@ class Projects::Scraper
     node.each do |article|
      name = article.search('h3 > a').text
      description = article.search('div').text.gsub('read more...', '').strip
-     url = article.css('a')[0]['href']
+      url = article.css('a')[0]['href']
      #binding.pry
      Projects::Science.new(name, description, url)
     end
